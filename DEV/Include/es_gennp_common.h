@@ -54,9 +54,11 @@ template<class T> void ES_UNUSED (const T&) { }
 #define ES_UNUSED(x) (void)(x)
 #endif
 
-#include <memory>
-#include <string>
+//#include <mutex>
+//#include <thread>
+//#include <memory>
+//#include <string>
 
-#include "es_gennp_util_os.h"
+//#include "es_gennp_util_os.h"
 
 #endif // ES_GENNP_COMMON_H

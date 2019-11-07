@@ -4,6 +4,8 @@
 #include "es_gennp_common.h"
 #include "es_gennp_branding.h"
 
+#include <memory>
+
 struct ESCoreConfig
 {
     std::shared_ptr<ESGenNPBranding> (*pFNCreateBranding) ();

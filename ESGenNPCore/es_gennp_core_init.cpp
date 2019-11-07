@@ -1,7 +1,8 @@
-#include "es_gennp_service.h"
-#include "es_gennp_service_direct.h"
 #include "es_gennp_core_init.h"
 #include "es_gennp_config_init_branding.h"
+#include "es_gennp_service.h"
+#include "es_gennp_service_direct.h"
+#include "es_gennp_util_os.h"
 
 static ESAtomicLong nifty_counter = 0;
 static ESGenNPConfigInitBranding *branding_config_init = NULL;

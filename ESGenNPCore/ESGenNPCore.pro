@@ -77,7 +77,9 @@ win32{
 SOURCES += \
     es_gennp_branding_default.cpp \
     es_gennp_core_init.cpp \
-    es_gennp_service_direct.cpp
+    es_gennp_service_direct.cpp \
+    es_gennp_socket_controller_win.cpp \
+    es_gennp_socket_message.cpp
 
 HEADERS += \
     es_gennp_common.h \
@@ -90,7 +92,11 @@ HEADERS += \
     es_gennp_service.h \
     es_gennp_util_os.h \
     es_gennp.h \
-    es_gennp_service_direct.h
+    es_gennp_service_direct.h \
+    es_gennp_socket.h \
+    es_gennp_socket_controller.h \
+    es_gennp_socket_controller_win.h \
+    es_gennp_socket_message.h
 
 unix {
     target.path = /usr/lib

@@ -17,6 +17,7 @@ public:
     virtual std::string EnvVarLogName () const = 0;
     virtual std::string EnvvarLogLevel () const = 0;
 
+    //virtual uint64_t DefaultConnectTimeout () const = 0;
     virtual uint64_t DefaultReceiveTimeout () const = 0;
     virtual uint64_t DefaultSendTimeout () const = 0;
 };
