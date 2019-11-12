@@ -85,7 +85,8 @@ extern "C" {
         ESGC_ERR_ACCESS_DENIED       = -1005,
         ESGC_ERR_INVALID_HANDLE      = -1006,
         ESGC_ERR_INVALID_PARAMETER   = -1007,
-        ESGC_ERR_TIMEOUT             = -1008
+        ESGC_ERR_ABORT               = -1008,
+        ESGC_ERR_TIMEOUT             = -1009
     };
     typedef int32_t ESGC_ERROR;
 
@@ -93,6 +94,31 @@ extern "C" {
 
     ESGC_API ESGCInit              ( void );
     ESGC_API ESGCClose             ( void );
+
+    //Client
+    //Stream
+    //
+
+//    ESGC_API ESGCRegisterEvent     ( void );
+//    ESGC_API ESGCUnregisterEvent   ( void );
+
+//    ESGC_API ESGCEventGetData      ( void );
+//    ESGC_API ESGCEventFlush        ( void );
+//    ESGC_API ESGCEventKill         ( void );
+
+////#define ES_CLIENT 1
+//#ifdef ES_CLIENT
+//    ESGC_API ESClientGetInfo            ( void );
+//    ESGC_API ESClientGetNumServers      ( void );
+//    ESGC_API ESClientUpdateServerList   ( void ); //Blocking for now
+//    ESGC_API ESClientGetServerInfo      ( void );
+//    ESGC_API ESClientConnectToServer    ( void );
+//#else
+//    ESGC_API ESServerGetInfo            ( void );
+//    ESGC_API ESServerStart              ( void );
+//    ESGC_API ESServerAcceptClient       ( void );
+//    ESGC_API ESServerStop               ( void );
+//#endif
 
 /* typedefs for dynamic loading */
 #   define ESGC_API_P(function) typedef ESGC_ERROR( ESGC_CALLTYPE *function )

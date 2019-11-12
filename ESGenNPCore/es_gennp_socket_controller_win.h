@@ -17,6 +17,7 @@ public:
 
     virtual bool Create(int32_t protocol);
     virtual bool Connect(uint64_t ipAddress, uint16_t port);
+    virtual void Destroy();
 
     virtual bool Bind(uint64_t ipAddress, uint16_t port);
     virtual bool SetSocketOpt(int32_t level, int32_t optName, const char *optValue, int32_t optLen);
@@ -27,7 +28,6 @@ public:
 
 private:
     SOCKET m_Socket;
-
 };
 
 #endif // ES_GENNP_SOCKET_CONTROLLER_WIN_H

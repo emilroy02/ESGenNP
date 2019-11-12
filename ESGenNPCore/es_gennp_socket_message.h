@@ -12,6 +12,8 @@ public:
 
     bool Connect(int protocol, uint64_t ipAddress, uint16_t port);
 
+private:
+    std::shared_ptr<ESGenNPSocketController> m_pController;
 };
 
 #endif // ES_GENNP_SOCKET_MESSAGE_H

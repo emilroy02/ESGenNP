@@ -40,6 +40,18 @@ bool ESGenNPSocketControllerWin::Connect(uint64_t ipAddress, uint16_t port)
     return true;
 }
 
+void ESGenNPSocketControllerWin::Destroy()
+{
+    if(INVALID_SOCKET != m_Socket)
+        return;
+
+    //TBD add traces
+    shutdown(m_Socket, SD_BOTH);
+    closesocket(m_Socket);
+
+    m_Socket = INVALID_SOCKET;
+}
+
 bool ESGenNPSocketControllerWin::Bind(uint64_t ipAddress, uint16_t port)
 {
     return false;

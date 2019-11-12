@@ -5,3 +5,8 @@ DEV/Lib/ESGenNPCore.lib
 DEV/Lib/ESGenNPRestos.lib
 DEV/Lib/ESGenNPCore.lib
 DEV/Lib/ESGenNPRestos.lib
+DEV/Lib/ESGenNPRestos.lib
+DEV/Lib/ESGenNPCore.lib
+DEV/Lib/ESGenNPCore.lib
+DEV/Lib/ESGenNPRestos.lib
+*.lib

@@ -9,7 +9,6 @@ using namespace ESGenNP;
 int main(int argc, char *argv[])
 {
     //cout << "Hello World!" << endl;
-
     ESGCInit();
     ESGCClose();
     system("pause");

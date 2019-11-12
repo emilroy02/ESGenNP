@@ -10,6 +10,7 @@ public:
 
     virtual bool Create(int32_t protocol)=0;
     virtual bool Connect(uint64_t ipAddress, uint16_t port)=0;
+    virtual void Destroy()=0;
     virtual bool Bind(uint64_t ipAddress, uint16_t port)=0;
     virtual bool SetSocketOpt(int32_t level, int32_t optName, const char *optValue, int32_t optLen)=0;
     virtual bool GetSocketOpt(int32_t level, int32_t optName, const char *optValue, int32_t optLen)=0;

@@ -79,7 +79,13 @@ SOURCES += \
     es_gennp_core_init.cpp \
     es_gennp_service_direct.cpp \
     es_gennp_socket_controller_win.cpp \
-    es_gennp_socket_message.cpp
+    es_gennp_socket_message.cpp \
+    es_gennp_socket_broadcast.cpp \
+    es_gennp_client.cpp \
+    es_gennp_thread.cpp \
+    es_gennp_module.cpp \
+    es_gennp_event.cpp \
+    es_gennp_event_error.cpp
 
 HEADERS += \
     es_gennp_common.h \
@@ -96,7 +102,13 @@ HEADERS += \
     es_gennp_socket.h \
     es_gennp_socket_controller.h \
     es_gennp_socket_controller_win.h \
-    es_gennp_socket_message.h
+    es_gennp_socket_message.h \
+    es_gennp_socket_broadcast.h \
+    es_gennp_client.h \
+    es_gennp_thread.h \
+    es_gennp_module.h \
+    es_gennp_event.h \
+    es_gennp_event_error.h
 
 unix {
     target.path = /usr/lib
