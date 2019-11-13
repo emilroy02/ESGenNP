@@ -16,7 +16,7 @@ public:
     ESGC_ERROR Kill();
 
 protected:
-    bool EventDataAdd(const T &eventData);
+    bool AddEventData(const T &eventData);
 
 protected:
     virtual ESGC_ERROR DoGetData(const T &eventData, void *pBuffer, size_t *pBufferSize) = 0;
@@ -29,24 +29,5 @@ private:
     mutable std::mutex m_Mutex;
     mutable bool m_bAborted;
 };
-
-//typedef struct ESErrorEventData_
-//{
-//  std::string errorMessage;
-//  ESErrorEventData_(const std::string &errorMessage):errorMessage(errorMessage){}
-//} ESErrorEventData;
-
-//class ESGenNPEventError : public ESGenNPEvent<ESErrorEventData>
-//{
-//public:
-//  ESGenNPEventError ();
-//  virtual ~ESGenNPEventError ();
-
-//public:
-//  bool AddErrorEvent (const std::string &msg);
-
-//protected:
-//  virtual ESGC_ERROR DoGetData (const ErrorEventData &evt_data, void *buffer, size_t *psize);
-//};
 
 #endif // ESGENNPEVENT_H

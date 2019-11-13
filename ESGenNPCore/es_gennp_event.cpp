@@ -42,7 +42,7 @@ template<typename T>ESGC_ERROR ESGenNPEvent<T>::Kill()
     return ESGC_ERR_SUCCESS;
 }
 
-template<typename T>bool ESGenNPEvent<T>::EventDataAdd(const T &eventData)
+template<typename T>bool ESGenNPEvent<T>::AddEventData(const T &eventData)
 {
     //TBD check first if event is opened/registered????
 

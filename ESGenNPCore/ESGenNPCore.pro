@@ -85,7 +85,10 @@ SOURCES += \
     es_gennp_thread.cpp \
     es_gennp_module.cpp \
     es_gennp_event.cpp \
-    es_gennp_event_error.cpp
+    es_gennp_event_error.cpp \
+    es_gennp_event_client.cpp \
+    es_gennp_library.cpp \
+    es_gennp_handle.cpp
 
 HEADERS += \
     es_gennp_common.h \
@@ -108,7 +111,10 @@ HEADERS += \
     es_gennp_thread.h \
     es_gennp_module.h \
     es_gennp_event.h \
-    es_gennp_event_error.h
+    es_gennp_event_error.h \
+    es_gennp_event_client.h \
+    es_gennp_library.h \
+    es_gennp_handle.h
 
 unix {
     target.path = /usr/lib
