@@ -2,7 +2,6 @@
 
 ESGenNPEventError::ESGenNPEventError()
 {
-
 }
 
 ESGenNPEventError::~ESGenNPEventError()

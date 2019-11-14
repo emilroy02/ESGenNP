@@ -10,7 +10,7 @@ typedef struct ESErrorEventData_
     ESErrorEventData_(const std::string &errorMessage):errorMessage(errorMessage){}
 } ESErrorEventData;
 
-class ESGenNPEventError:public ESGenNPEvent<ESErrorEventData>
+class ESGenNPEventError:public ESGenNPEventImpl<ESErrorEventData>
 {
 public:
     ESGenNPEventError();

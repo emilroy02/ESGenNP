@@ -6,11 +6,21 @@
 #include <deque>
 #include <condition_variable>
 
-template<typename T> class ESGenNPEvent
+class ESGenNPEvent
+{
+    virtual ~ESGenNPEvent()=0;
+
+    virtual ESGC_ERROR GetData(void *buffer, size_t *psize, uint64_t timeout)=0;
+    virtual ESGC_ERROR Kill()=0;
+};
+
+inline ESGenNPEvent::~ESGenNPEvent(){}
+
+template<typename T> class ESGenNPEventImpl:public ESGenNPEvent
 {
 public:
-    ESGenNPEvent();
-    virtual ~ESGenNPEvent();
+    ESGenNPEventImpl();
+    virtual ~ESGenNPEventImpl();
 
     ESGC_ERROR GetData(void *buffer, size_t *psize, uint64_t timeout);
     ESGC_ERROR Kill();

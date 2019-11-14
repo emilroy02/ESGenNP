@@ -7,7 +7,7 @@
 #include <vector>
 
 typedef std::vector<uint8_t> ESClientEventData;
-class ESGenNPEventClient:public ESGenNPEvent<ESClientEventData>
+class ESGenNPEventClient:public ESGenNPEventImpl<ESClientEventData>
 {
 public:
     ESGenNPEventClient();

@@ -1,17 +1,17 @@
 #include "es_gennp_event.h"
 
-template<typename T>ESGenNPEvent<T>::ESGenNPEvent():
+template<typename T>ESGenNPEventImpl<T>::ESGenNPEventImpl():
     m_bAborted(false)
 {
 
 }
 
-template<typename T> ESGenNPEvent<T>::~ESGenNPEvent ()
+template<typename T> ESGenNPEventImpl<T>::~ESGenNPEventImpl ()
 {
 }
 
 
-template<typename T>ESGC_ERROR ESGenNPEvent<T>::GetData(void *pBuffer, size_t *pSize, uint64_t timeout)
+template<typename T>ESGC_ERROR ESGenNPEventImpl<T>::GetData(void *pBuffer, size_t *pSize, uint64_t timeout)
 {
     std::unique_lock<std::mutex> lock(m_Mutex);
 
@@ -35,14 +35,14 @@ template<typename T>ESGC_ERROR ESGenNPEvent<T>::GetData(void *pBuffer, size_t *p
     return ESGC_ERR_SUCCESS;
 }
 
-template<typename T>ESGC_ERROR ESGenNPEvent<T>::Kill()
+template<typename T>ESGC_ERROR ESGenNPEventImpl<T>::Kill()
 {
     std::lock_guard<std::mutex> lock(m_Mutex);
     m_bAborted = true;
     return ESGC_ERR_SUCCESS;
 }
 
-template<typename T>bool ESGenNPEvent<T>::AddEventData(const T &eventData)
+template<typename T>bool ESGenNPEventImpl<T>::AddEventData(const T &eventData)
 {
     //TBD check first if event is opened/registered????
 
