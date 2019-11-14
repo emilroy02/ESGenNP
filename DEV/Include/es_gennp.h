@@ -90,6 +90,15 @@ extern "C" {
     };
     typedef int32_t ESGC_ERROR;
 
+    enum ESGC_EVENT_TYPE_LIST
+    {
+        ESGC_EVENT_ERROR               = 0,     /* Notification on module errors. */
+        ESGC_EVENT_SERVER_DISCOVERED   = 1,     /* Notification on client module when server is discovered. */
+        ESGC_EVENT_PACKET_RECEIVED     = 2,     /* Notification on client/server module when packet is received*/
+        ESGC_EVENT_CUSTOM_ID           = 10000
+    };
+    typedef int32_t ESGC_EVENT_TYPE;
+
 #   define ESGC_API ESGC_IMPORT_EXPORT ESGC_ERROR ESGC_CALLTYPE
 
     ESGC_API ESGCInit              ( void );
