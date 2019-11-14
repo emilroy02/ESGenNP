@@ -17,26 +17,34 @@ public:
     virtual std::string GetID() const = 0;
     virtual std::string GetSimpleID() const;
 
+    void Init();
+
     void MarkDead();
     bool IsOpen() const;
     bool IsDead() const;
 
     void Lock() const;
     void Unlock() const;
-    void PostConstruct();
 
 protected:
     virtual ESGC_ERROR DoOpen();
     virtual ESGC_ERROR DoClose();
     virtual void DoMarkDead();
-    virtual void DoPostConstruct();
+    virtual void DoInit();
+
+protected:
+    mutable std::mutex m_Mutex;
 
 private:
     ESGenNPHandle (const ESGenNPHandle&);
     ESGenNPHandle& operator=(const ESGenNPHandle&);
 
 private:
-    mutable std::mutex m_Mutex;
+    ESGC_ERROR Open ();
+    ESGC_ERROR Close ();
+    friend class ESGenNPLibrary;
+
+private:
     bool m_bIsOpen;
     bool m_bIsDead;
     bool m_bInited;

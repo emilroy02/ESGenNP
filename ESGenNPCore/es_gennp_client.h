@@ -8,19 +8,6 @@ class ESGenNPClient
 public:
     ESGenNPClient();
 
-    bool ServerDiscoveryStart();
-    void ServerDiscoveryStop();
-
-    bool ServerConnect(int serverID);
-    void ServerDisconnect();
-
-    void ServerSend(int data);
-
-protected:
-    virtual void OnServerDiscovered(int serverID);
-    virtual void OnServerDisconnected();
-    virtual void OnDataReceived(int data);
-
 };
 
 #endif // ES_GENNP_CLIENT_H

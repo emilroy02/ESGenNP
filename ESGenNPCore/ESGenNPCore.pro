@@ -88,7 +88,8 @@ SOURCES += \
     es_gennp_event_error.cpp \
     es_gennp_event_client.cpp \
     es_gennp_library.cpp \
-    es_gennp_handle.cpp
+    es_gennp_handle.cpp \
+    es_gennp_event_source.cpp
 
 HEADERS += \
     es_gennp_common.h \
@@ -114,7 +115,8 @@ HEADERS += \
     es_gennp_event_error.h \
     es_gennp_event_client.h \
     es_gennp_library.h \
-    es_gennp_handle.h
+    es_gennp_handle.h \
+    es_gennp_event_source.h
 
 unix {
     target.path = /usr/lib
