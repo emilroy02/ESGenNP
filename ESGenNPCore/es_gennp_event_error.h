@@ -16,6 +16,8 @@ public:
     ESGenNPEventError();
     virtual~ESGenNPEventError();
 
+    virtual ESGC_EVENT_TYPE GetEventType() const {return ESGC_EVENT_ERROR;}
+
 public:
     bool AddErrorEvent(const std::string &msg);
 

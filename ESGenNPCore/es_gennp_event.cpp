@@ -1,12 +1,20 @@
 #include "es_gennp_event.h"
 
+ESGenNPEvent::ESGenNPEvent():
+    ESGenNPHandle()
+{
+}
+
+ESGenNPEvent::~ESGenNPEvent()
+{
+}
+
 template<typename T>ESGenNPEventImpl<T>::ESGenNPEventImpl():
     m_bAborted(false)
 {
-
 }
 
-template<typename T> ESGenNPEventImpl<T>::~ESGenNPEventImpl ()
+template<typename T> ESGenNPEventImpl<T>::~ESGenNPEventImpl()
 {
 }
 
@@ -44,8 +52,7 @@ template<typename T>ESGC_ERROR ESGenNPEventImpl<T>::Kill()
 
 template<typename T>bool ESGenNPEventImpl<T>::AddEventData(const T &eventData)
 {
-    //TBD check first if event is opened/registered????
-
+    //TBD check first if event is opened/registered???
     std::lock_guard<std::mutex> lock(m_Mutex);
     m_EventDataQueue.push_back(eventData);
     m_QueueNotEmpty.notify_all();

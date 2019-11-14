@@ -14,7 +14,7 @@ public:
     virtual ~ESGenNPHandle()=0;
 
 public:
-    virtual std::string GetID() const = 0;
+    virtual std::string GetID() const;
     virtual std::string GetSimpleID() const;
 
     void Init();

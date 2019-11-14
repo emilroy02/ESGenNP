@@ -14,17 +14,21 @@ class ESGenNPEventSource
 {
 public:
     ESGenNPEventSource();
-    virtual ~ESGenNPEventSource() = 0; //only for polymorphic access
+    virtual ~ESGenNPEventSource() = 0;
 
-    ESGC_ERROR RegisterEvent(ESGC_EVENT_TYPE type,std::shared_ptr<ESGenNPEvent> &event);
-    ESGC_ERROR UnregisterEvent(ESGC_EVENT_TYPE type,std::shared_ptr<ESGenNPEvent> &event);
+    ESGC_ERROR RegisterEvent(ESGC_EVENT_TYPE type,std::shared_ptr<ESGenNPEvent> &eventOut);
+    ESGC_ERROR UnregisterEvent(ESGC_EVENT_TYPE type,std::shared_ptr<ESGenNPEvent> &eventOut);
 
-    void OnEventRegisterError(ESGC_EVENT_TYPE type);
+    void OnRegisterEventError(ESGC_EVENT_TYPE type);
 
 protected:
     void AddSupportedEvent(const std::shared_ptr<ESGenNPEvent> &event);
-    void AddSharedEvent(); //TBD only error event for now, add parameter later to support other shared events
+    void AddErrorEvent(); //TBD only error event for now, add parameter later to support other shared events
     bool TriggerErrorEvent(const std::string &msg);
+
+    virtual ESGC_ERROR DoRegisterEvent (ESGC_EVENT_TYPE type);
+    virtual ESGC_ERROR DoUnregisterEvent (ESGC_EVENT_TYPE type);
+    virtual std::mutex &GetLock()=0;
 
 private:
     typedef std::map<ESGC_EVENT_TYPE, std::shared_ptr<ESGenNPEvent>>EventMapType;

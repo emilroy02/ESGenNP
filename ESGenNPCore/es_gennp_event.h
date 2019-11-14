@@ -3,18 +3,21 @@
 
 #include "es_gennp_common.h"
 #include "es_gennp_wrap.h"
+#include "es_gennp_handle.h"
+
 #include <deque>
 #include <condition_variable>
 
-class ESGenNPEvent
+class ESGenNPEvent: public ESGenNPHandle
 {
+public:
+    ESGenNPEvent();
     virtual ~ESGenNPEvent()=0;
 
-    virtual ESGC_ERROR GetData(void *buffer, size_t *psize, uint64_t timeout)=0;
-    virtual ESGC_ERROR Kill()=0;
+    virtual ESGC_ERROR GetData(void *buffer, size_t *psize, uint64_t timeout) = 0;
+    virtual ESGC_ERROR Kill() = 0;
+    virtual ESGC_EVENT_TYPE GetEventType() const = 0;
 };
-
-inline ESGenNPEvent::~ESGenNPEvent(){}
 
 template<typename T> class ESGenNPEventImpl:public ESGenNPEvent
 {
@@ -22,8 +25,8 @@ public:
     ESGenNPEventImpl();
     virtual ~ESGenNPEventImpl();
 
-    ESGC_ERROR GetData(void *buffer, size_t *psize, uint64_t timeout);
-    ESGC_ERROR Kill();
+    virtual ESGC_ERROR GetData(void *buffer, size_t *psize, uint64_t timeout);
+    virtual ESGC_ERROR Kill();
 
 protected:
     bool AddEventData(const T &eventData);

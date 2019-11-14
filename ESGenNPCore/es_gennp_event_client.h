@@ -6,12 +6,15 @@
 
 #include <vector>
 
+//TBD whole class might not be needed
 typedef std::vector<uint8_t> ESClientEventData;
 class ESGenNPEventClient:public ESGenNPEventImpl<ESClientEventData>
 {
 public:
     ESGenNPEventClient();
     virtual~ESGenNPEventClient();
+
+    virtual ESGC_EVENT_TYPE GetEventType() const {return ESGC_EVENT_ERROR;}
 
 public:
     bool AddClientEvent(const uint8_t *pEventPacket, size_t eventPacketSize);
