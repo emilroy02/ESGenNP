@@ -11,10 +11,10 @@ ESGenNPHandle::~ESGenNPHandle()
 {
 }
 
-std::string ESGenNPHandle::GetID() const
-{
-    return "";
-}
+//std::string ESGenNPHandle::GetID() const
+//{
+//    return "";
+//}
 
 std::string ESGenNPHandle::GetSimpleID() const
 {

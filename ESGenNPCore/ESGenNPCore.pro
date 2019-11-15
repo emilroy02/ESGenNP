@@ -53,12 +53,23 @@ TARGET_SRC  = $${OUT_PWD}
 #common
 copyToDestDir("$${PWD}/es_gennp.h", "$${PWD}/../DEV/Include")
 copyToDestDir("$${PWD}/es_gennp_common.h", "$${PWD}/../DEV/Include")
+copyToDestDir("$${PWD}/es_gennp_handle.h", "$${PWD}/../DEV/Include")
 copyToDestDir("$${PWD}/es_gennp_branding.h", "$${PWD}/../DEV/Include")
+copyToDestDir("$${PWD}/es_gennp_library.h", "$${PWD}/../DEV/Include")
 copyToDestDir("$${PWD}/es_gennp_wrap.h", "$${PWD}/../DEV/Include")
 copyToDestDir("$${PWD}/es_gennp_core_init.h", "$${PWD}/../DEV/Include")
 copyToDestDir("$${PWD}/es_gennp_service.h", "$${PWD}/../DEV/Include")
 copyToDestDir("$${PWD}/es_gennp_util_os.h", "$${PWD}/../DEV/Include")
 copyToDestDir("$${PWD}/es_gennp_config_init.h", "$${PWD}/../DEV/Include")
+copyToDestDir("$${PWD}/es_gennp_socket.h", "$${PWD}/../DEV/Include")
+copyToDestDir("$${PWD}/es_gennp_socket_controller.h", "$${PWD}/../DEV/Include")
+copyToDestDir("$${PWD}/es_gennp_socket_controller_win.h", "$${PWD}/../DEV/Include")
+copyToDestDir("$${PWD}/es_gennp_event.h", "$${PWD}/../DEV/Include")
+copyToDestDir("$${PWD}/es_gennp_event_source.h", "$${PWD}/../DEV/Include")
+copyToDestDir("$${PWD}/es_gennp_module.h", "$${PWD}/../DEV/Include")
+copyToDestDir("$${PWD}/es_gennp_module_client.h", "$${PWD}/../DEV/Include")
+copyToDestDir("$${PWD}/es_gennp_module_server.h", "$${PWD}/../DEV/Include")
+
 
 win32{
     CONFIG(debug, debug|release) {
@@ -85,11 +96,11 @@ SOURCES += \
     es_gennp_thread.cpp \
     es_gennp_module.cpp \
     es_gennp_event.cpp \
-    es_gennp_event_error.cpp \
     es_gennp_event_client.cpp \
     es_gennp_library.cpp \
     es_gennp_handle.cpp \
-    es_gennp_event_source.cpp
+    es_gennp_event_source.cpp \
+    es_gennp_module_server.cpp
 
 HEADERS += \
     es_gennp_common.h \
@@ -108,15 +119,16 @@ HEADERS += \
     es_gennp_socket_controller_win.h \
     es_gennp_socket_message.h \
     es_gennp_socket_broadcast.h \
-    es_gennp_client.h \
     es_gennp_thread.h \
     es_gennp_module.h \
     es_gennp_event.h \
-    es_gennp_event_error.h \
     es_gennp_event_client.h \
     es_gennp_library.h \
     es_gennp_handle.h \
-    es_gennp_event_source.h
+    es_gennp_event_source.h \
+    es_gennp_module_server.h \
+    es_gennp_module_client.h \
+    es_gennp_tag_client.h
 
 unix {
     target.path = /usr/lib

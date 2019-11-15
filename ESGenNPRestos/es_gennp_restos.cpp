@@ -7,12 +7,18 @@
 #include "es_gennp_config_init.h"
 #include "es_gennp_service.h"
 #include "es_gennp_branding_restos.h"
+#include "es_gennp_library_restos.h"
 
 static ESGenNPService *pService = NULL;
 
 static std::shared_ptr<ESGenNPBranding> CreateBrandingRestos()
 {
     return std::make_shared<ESGenNPBrandingRestos>();
+}
+
+static std::shared_ptr<ESGenNPLibrary> CreateLibraryRestos()
+{
+    return std::make_shared<ESGenNPLibraryRestos>();
 }
 
 class ESGenNPCoreConfigurator
@@ -22,6 +28,7 @@ public:
     {
         ESCoreConfig cfg;
         cfg.pFNCreateBranding = CreateBrandingRestos;
+        cfg.pFNCreateLibrary = CreateLibraryRestos;
         pService = ESGenNPCoreInit::ConfigureCore(cfg);
     }
 
@@ -42,6 +49,12 @@ namespace ESGenNP {
     }
 
     ESGC_API ESGCClose( void )
+    {
+        COMMON_PRECONDITION
+        return pService->ESGCClose();
+    }
+
+    ESGC_API ESGCCreateClient( void )
     {
         COMMON_PRECONDITION
         return pService->ESGCClose();

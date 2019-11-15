@@ -3,4 +3,5 @@ TEMPLATE = subdirs
 SUBDIRS += \
     ESGenNPCore \
     ESGenNPRestos \
-    ESRestos
+    ESRestosServer \
+    ESRestosClient

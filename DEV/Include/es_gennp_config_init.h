@@ -3,12 +3,14 @@
 
 #include "es_gennp_common.h"
 #include "es_gennp_branding.h"
+#include "es_gennp_library.h"
 
 #include <memory>
 
 struct ESCoreConfig
 {
-    std::shared_ptr<ESGenNPBranding> (*pFNCreateBranding) ();
+    std::shared_ptr<ESGenNPBranding> (*pFNCreateBranding)();
+    std::shared_ptr<ESGenNPLibrary> (*pFNCreateLibrary)();
 };
 
 class ESGenNPConfigInit

@@ -99,11 +99,14 @@ extern "C" {
     };
     typedef int32_t ESGC_EVENT_TYPE;
 
+    typedef void*  ESGC_CLIENT_HANDLE;
+
 #   define ESGC_API ESGC_IMPORT_EXPORT ESGC_ERROR ESGC_CALLTYPE
 
     ESGC_API ESGCInit              ( void );
     ESGC_API ESGCClose             ( void );
 
+    ESGC_API ESGCClientCreate      (ESGC_CLIENT_HANDLE *phClientOut);//TBD might need to pass some uid/info like port, etc
     //Client
     //Stream
     //
@@ -129,10 +132,12 @@ extern "C" {
 //    ESGC_API ESServerStop               ( void );
 //#endif
 
-/* typedefs for dynamic loading */
-#   define ESGC_API_P(function) typedef ESGC_ERROR( ESGC_CALLTYPE *function )
-    ESGC_API_P(PESGCInit               )( void );
-    ESGC_API_P(PESGCClose              )( void );
+//Commented for now
+///* typedefs for dynamic loading */
+//#   define ESGC_API_P(function) typedef ESGC_ERROR( ESGC_CALLTYPE *function )
+//    ESGC_API_P(PESGCInit               )( void );
+//    ESGC_API_P(PESGCClose              )( void );
+//    ESGC_API_P(PESGCCreateClient       )( ESGC_CLIENT_HANDLE* );
 
 #ifdef __cplusplus
   } /* end of namespace ESGenNP */

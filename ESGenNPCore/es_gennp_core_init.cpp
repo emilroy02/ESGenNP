@@ -54,10 +54,15 @@ ESGenNPService *ESGenNPCoreInit::ConfigureCore(const ESCoreConfig &config)
         return NULL;
 
     std::shared_ptr<ESGenNPBranding> brand = config.pFNCreateBranding();
+    std::shared_ptr<ESGenNPLibrary> library = config.pFNCreateLibrary();
+
+    direct_service = new ESGenNPServiceDirect(library);
+    pService = dynamic_cast<ESGenNPService*> (direct_service);
+
+
     branding_config_init->StartupConfig(brand);
 
-    direct_service = new ESGenNPServiceDirect;
-    pService = dynamic_cast<ESGenNPService*> (direct_service);
+
     return pService;
 }
 

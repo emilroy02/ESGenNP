@@ -10,7 +10,6 @@ ESGenNPSocketMessage::~ESGenNPSocketMessage()
 
 bool ESGenNPSocketMessage::Connect(int protocol, uint64_t ipAddress, uint16_t port)
 {
-
     if(!m_pController)
         return false;
 
