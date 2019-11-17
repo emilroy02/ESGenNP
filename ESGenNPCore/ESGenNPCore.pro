@@ -90,9 +90,6 @@ SOURCES += \
     es_gennp_core_init.cpp \
     es_gennp_service_direct.cpp \
     es_gennp_socket_controller_win.cpp \
-    es_gennp_socket_message.cpp \
-    es_gennp_socket_broadcast.cpp \
-    es_gennp_client.cpp \
     es_gennp_thread.cpp \
     es_gennp_module.cpp \
     es_gennp_event.cpp \
@@ -100,7 +97,11 @@ SOURCES += \
     es_gennp_library.cpp \
     es_gennp_handle.cpp \
     es_gennp_event_source.cpp \
-    es_gennp_module_server.cpp
+    es_gennp_module_server.cpp \
+    es_gennp_socket_stream_tcp.cpp \
+    es_gennp_module_client.cpp \
+    es_gennp_socket.cpp \
+    es_gennp_runnable.cpp
 
 HEADERS += \
     es_gennp_common.h \
@@ -117,8 +118,6 @@ HEADERS += \
     es_gennp_socket.h \
     es_gennp_socket_controller.h \
     es_gennp_socket_controller_win.h \
-    es_gennp_socket_message.h \
-    es_gennp_socket_broadcast.h \
     es_gennp_thread.h \
     es_gennp_module.h \
     es_gennp_event.h \
@@ -128,7 +127,10 @@ HEADERS += \
     es_gennp_event_source.h \
     es_gennp_module_server.h \
     es_gennp_module_client.h \
-    es_gennp_tag_client.h
+    es_gennp_tag_client.h \
+    es_gennp_socket_stream_tcp.h \
+    es_gennp_tag_server.h \
+    es_gennp_runnable.h
 
 unix {
     target.path = /usr/lib

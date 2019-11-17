@@ -1,32 +1,31 @@
 #ifndef ES_GENNP_SOCKET_H
 #define ES_GENNP_SOCKET_H
 
-#include <memory>
-
 #include "es_gennp_common.h"
 #include "es_gennp_socket_controller.h"
 
-#ifdef _WIN32
-#include "es_gennp_socket_controller_win.h"
-#endif
+#include <memory>
+#include <mutex>
 
-/*This is an abstract class that just select the needed controller depending on platform*/
 class ESGenNPSocket
 {
 public:
-    ESGenNPSocket():m_pController(NULL)
-    {
-#ifdef _WIN32
-        m_pController = std::make_shared<ESGenNPSocketControllerWin>();
-#endif
-    }
+    ESGenNPSocket();
+    virtual ~ESGenNPSocket();
 
-    virtual ~ESGenNPSocket()=0;
+public:
+    bool Create(int32_t af, int32_t type, int32_t protocol);
+    bool Bind(uint32_t ipAddress, uint16_t port);
+    void Destroy();
 
 protected:
-    std::shared_ptr<ESGenNPSocketController> m_pController;
-};
+//    virtual void OnCreate();???
 
-inline ESGenNPSocket::~ESGenNPSocket(){}
+
+private:
+    std::shared_ptr<ESGenNPSocketController> m_pController;
+    mutable std::mutex m_Mutex;
+    ESGENNP_SOCKET m_hSocket;
+};
 
 #endif // ES_GENNP_SOCKET_H

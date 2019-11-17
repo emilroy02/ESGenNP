@@ -1,19 +1,20 @@
-#ifndef ES_GENNP_THREAD_H
-#define ES_GENNP_THREAD_H
+#ifndef ES_GENNP_RUNNABLE_H
+#define ES_GENNP_RUNNABLE_H
 
 #include "es_gennp_common.h"
-#include <thread>
 #include <future>
 
-class ESGenNPThread
+class ESGenNPRunnable
 {
 public:
-    ESGenNPThread();
-//    virtual ESGenNPThread();
+    ESGenNPRunnable();
+    ESGenNPRunnable(ESGenNPRunnable&& obj);
+    virtual ~ESGenNPRunnable();
 
-    bool Start();
+    virtual void RequestExit();
+    bool IsExitRequested();
 
-    ESGenNPThread & operator=(ESGenNPThread && obj)
+    ESGenNPRunnable & operator=(ESGenNPRunnable && obj)
     {
         m_RequestExit = std::move(obj.m_RequestExit);
         m_IsExitRequested = std::move(obj.m_IsExitRequested);
@@ -30,4 +31,4 @@ private:
     std::future<void> m_IsExitRequested;
 };
 
-#endif // ES_GENNP_THREAD_H
+#endif // ES_GENNP_RUNNABLE_H

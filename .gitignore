@@ -12,3 +12,5 @@ DEV/Lib/ESGenNPRestos.lib
 *.lib
 DEV/Lib/ESGenNPCore.lib
 *.lib
+DEV/Lib/ESGenNPCore.lib
+*.lib
