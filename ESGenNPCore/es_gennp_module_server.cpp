@@ -38,31 +38,11 @@ ESGC_ERROR ESGenNPModuleServer::Stop()
     if(NULL == m_pThread)
         return ESGC_ERR_TBD;//TBD
 
-    this->RequestExit();
     m_pListenSocket->Destroy();
+    this->RequestExit();
     m_pThread->join();
     return ESGC_ERR_SUCCESS;
 }
-
-//ESGC_ERROR ESGenNPModuleServer::Start()
-//{
-//    std::lock_guard<std::mutex> lock(GetLock());
-//    if(NULL == m_pTCPSocket)
-//        return ESGC_ERR_NOT_INITIALIZED;
-
-////    std::thread thread(&ESGenNPRunnableLooped::Run, this);
-//    return ESGC_ERR_SUCCESS;
-//}
-
-//ESGC_ERROR ESGenNPModuleServer::Stop()
-//{
-//    std::lock_guard<std::mutex> scopeLock(GetLock());
-//    if(NULL == m_pTCPSocket)
-//        return ESGC_ERR_NOT_INITIALIZED;
-
-//    RequestExit();
-//    return ESGC_ERR_SUCCESS;
-//}
 
 ESGC_ERROR ESGenNPModuleServer::DoOpen()
 {
@@ -70,7 +50,6 @@ ESGC_ERROR ESGenNPModuleServer::DoOpen()
         return ESGC_ERR_RESOURCE_IN_USE;
 
     m_pListenSocket = std::make_shared<ESGenNPSocket>();
-    //m_pThread = std::make_unique<std::thread>(&ESGenNPRunnableLooped::Run, this);
     return ESGC_ERR_SUCCESS;
 }
 
@@ -90,6 +69,8 @@ void ESGenNPModuleServer::DoMarkDead()
 
 bool ESGenNPModuleServer::OnEntry()
 {
+    std::cout << ">> OnEntry" << std::endl;
+
     bool bRet = m_pListenSocket->Create(AF_INET,SOCK_STREAM,IPPROTO_TCP);
     if(false == bRet)
         return false;
@@ -105,7 +86,7 @@ bool ESGenNPModuleServer::OnEntry()
         return false;
 
     ESGENNP_SOCKET hClientSocket = m_pListenSocket->Accept();
-    if(NULL != hClientSocket)
+    if(NULL == hClientSocket)
         return false;
 
     m_pClientSocket = std::make_shared<ESGenNPSocket>(hClientSocket);
@@ -115,11 +96,13 @@ bool ESGenNPModuleServer::OnEntry()
 
 bool ESGenNPModuleServer::OnExecute()
 {
+    std::cout << ">> OnExecute" << std::endl;
     return true;
 }
 
 void ESGenNPModuleServer::OnExit()
 {
+    std::cout << ">> OnExit" << std::endl;
     //m_pTCPSocket
 }
 

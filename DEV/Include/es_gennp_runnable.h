@@ -12,7 +12,7 @@ public:
     virtual ~ESGenNPRunnable();
 
     virtual void RequestExit();
-    bool WaitForExit(uint64_t timeoutMS);
+    bool WaitForExitRequested(uint64_t timeoutMS);
 
     ESGenNPRunnable & operator=(ESGenNPRunnable && obj)
     {

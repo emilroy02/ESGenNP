@@ -14,6 +14,7 @@ public:
     virtual ESGC_ERROR ESGCClientCreate(ESGC_CLIENT_HANDLE *phClientOut) = 0;
     virtual ESGC_ERROR ESGCServerCreate(ESGC_SERVER_HANDLE *phServerOut) = 0;
     virtual ESGC_ERROR ESGCServerStart(ESGC_SERVER_HANDLE hServer)=0;
+    virtual ESGC_ERROR ESGCServerStop(ESGC_SERVER_HANDLE hServer)=0;
 };
 
 #endif // ES_GENNP_SERVICE_H

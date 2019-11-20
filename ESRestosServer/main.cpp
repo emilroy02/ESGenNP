@@ -21,6 +21,9 @@ int main(int argc, char *argv[])
         error = ESGCServerStart(hServer);
         if(ESGC_ERR_SUCCESS != error)
             cout << "ESGCServerStart Failed! Error:" << error << endl;
+
+        Sleep(1000);
+        ESGCServerStop(hServer);
     }
     ESGCClose();
     system("pause");

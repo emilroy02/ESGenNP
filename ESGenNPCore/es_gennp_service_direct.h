@@ -17,6 +17,8 @@ public:
     ESGC_ERROR ESGCClientCreate(ESGC_CLIENT_HANDLE *phClientOut);
     ESGC_ERROR ESGCServerCreate(ESGC_SERVER_HANDLE *phServerOut);
     ESGC_ERROR ESGCServerStart(ESGC_SERVER_HANDLE hServer);
+    ESGC_ERROR ESGCServerStop(ESGC_SERVER_HANDLE hServer);
+
 
 private:
     std::shared_ptr<ESGenNPLibrary> m_Library;

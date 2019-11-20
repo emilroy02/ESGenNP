@@ -21,7 +21,7 @@ void ESGenNPRunnable::RequestExit()
     m_RequestExit.set_value();
 }
 
-bool ESGenNPRunnable::WaitForExit(uint64_t timeoutMS)
+bool ESGenNPRunnable::WaitForExitRequested(uint64_t timeoutMS)
 {
     if (m_IsExitRequested.wait_for(std::chrono::milliseconds(timeoutMS)) == std::future_status::timeout)
         return false;

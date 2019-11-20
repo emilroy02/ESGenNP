@@ -16,8 +16,8 @@ void ESGenNPRunnableLooped::Run()
     {
         while(true)
         {
-            bool bRet = WaitForExit(0);
-            if(false == bRet)
+            bool bRet = WaitForExitRequested(0);
+            if(true == bRet)
                 break;
 
             OnExecute();

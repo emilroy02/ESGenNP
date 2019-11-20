@@ -72,5 +72,10 @@ namespace ESGenNP {
         return pService->ESGCServerStart(hServer);
     }
 
+    ESGC_API ESGCServerStop(ESGC_SERVER_HANDLE hServer)
+    {
+        COMMON_PRECONDITION
+        return pService->ESGCServerStop(hServer);
+    }
   }
 }

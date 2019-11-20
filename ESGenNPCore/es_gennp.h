@@ -111,6 +111,7 @@ extern "C" {
     ESGC_API ESGCClientCreate      (ESGC_CLIENT_HANDLE *phClientOut);//TBD might need to pass some uid/info like port, etc
     ESGC_API ESGCServerCreate      (ESGC_SERVER_HANDLE *phServerOut);
     ESGC_API ESGCServerStart       (ESGC_SERVER_HANDLE hServer); //TBD might need to pass some uid/info like port, etc
+    ESGC_API ESGCServerStop        (ESGC_SERVER_HANDLE hServer);
     //Client
     //Stream
     //

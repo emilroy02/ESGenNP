@@ -28,25 +28,33 @@ ESGenNPSocket::~ESGenNPSocket()
 
 bool ESGenNPSocket::Create(int32_t af, int32_t type, int32_t protocol)
 {
-    std::lock_guard<std::mutex> scopeLock(m_Mutex);
-    if(NULL != m_hSocket)
+    m_Mutex.lock();
+    ESGENNP_SOCKET hSocket = m_hSocket;
+    m_Mutex.unlock();
+
+    if(NULL != hSocket)
         return false;
 
-    m_hSocket = m_pController->Create(af, type, protocol);
-    if(NULL == m_hSocket)
+    hSocket = m_pController->Create(af, type, protocol);
+    if(NULL == hSocket)
         return false;
 
+    m_Mutex.lock();
+    m_hSocket = hSocket;
+    m_Mutex.unlock();
     return true;
 }
 
 bool ESGenNPSocket::Bind(uint32_t ipAddress, uint16_t port)
 {
-    std::lock_guard<std::mutex> scopeLock(m_Mutex);
+    m_Mutex.lock();
+    ESGENNP_SOCKET hSocket = m_hSocket;
+    m_Mutex.unlock();
 
-    if(NULL == m_hSocket)
+    if(NULL == hSocket)
         return false;
 
-    bool bRet = m_pController->Bind(m_hSocket, ipAddress, port);
+    bool bRet = m_pController->Bind(hSocket, ipAddress, port);
     if(false == bRet)
         return false;
 
@@ -55,28 +63,36 @@ bool ESGenNPSocket::Bind(uint32_t ipAddress, uint16_t port)
 
 void ESGenNPSocket::Destroy()
 {
-    std::lock_guard<std::mutex> scopeLock(m_Mutex);
+    m_Mutex.lock();
+    ESGENNP_SOCKET hSocket = m_hSocket;
+    m_Mutex.unlock();
 
-    if(NULL == m_hSocket)
+    if(NULL == hSocket)
         return;
 
-    m_pController->Destroy(m_hSocket);
+    m_pController->Destroy(hSocket);
 }
 
 ESGENNP_SOCKET ESGenNPSocket::Accept()
 {
-    std::lock_guard<std::mutex> scopeLock(m_Mutex);
-    if(NULL == m_hSocket)
+    m_Mutex.lock();
+    ESGENNP_SOCKET hSocket = m_hSocket;
+    m_Mutex.unlock();
+
+    if(NULL == hSocket)
         return NULL;
 
-    return m_pController->Accept(m_hSocket);
+    return m_pController->Accept(hSocket);
 }
 
 int32_t ESGenNPSocket::Listen()
 {
-    std::lock_guard<std::mutex> scopeLock(m_Mutex);
-    if(NULL == m_hSocket)
+    m_Mutex.lock();
+    ESGENNP_SOCKET hSocket = m_hSocket;
+    m_Mutex.unlock();
+
+    if(NULL == hSocket)
         return -1;
 
-    return m_pController->Listen(m_hSocket);
+    return m_pController->Listen(hSocket);
 }

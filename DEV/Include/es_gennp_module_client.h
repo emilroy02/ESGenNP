@@ -25,7 +25,7 @@ protected:
     virtual void DoInit();
 
 private:
-    std::shared_ptr <ESGenNPSocket> m_Socket;
+    std::shared_ptr<ESGenNPSocket> m_ServerDiscoverySocket;
 };
 
 #endif // ES_GENNP_MODULE_CLIENT_H

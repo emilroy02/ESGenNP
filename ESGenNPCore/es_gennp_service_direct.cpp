@@ -16,6 +16,7 @@
                                  } \
                              }
 
+
 ESGenNPServiceDirect::ESGenNPServiceDirect(const std::shared_ptr<ESGenNPLibrary> &library):
     m_Library(library)
 {
@@ -58,8 +59,12 @@ ESGC_ERROR ESGenNPServiceDirect::ESGCServerCreate(ESGC_SERVER_HANDLE *phServerOu
 
 ESGC_ERROR ESGenNPServiceDirect::ESGCServerStart(ESGC_SERVER_HANDLE hServer)
 {
-//    GET_HANDLE(hServer,ESGenNPModuleServer, server)
-    std::shared_ptr <ESGenNPModuleServer> server;
-    ESGC_ERROR error = m_Library->GetHandle(hServer, server);
+    GET_HANDLE(hServer,ESGenNPModuleServer, server)
     return server->Start();
+}
+
+ESGC_ERROR ESGenNPServiceDirect::ESGCServerStop(ESGC_SERVER_HANDLE hServer)
+{
+    GET_HANDLE(hServer,ESGenNPModuleServer, server)
+    return server->Stop();
 }
