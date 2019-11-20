@@ -13,6 +13,15 @@ ESGenNPSocket::ESGenNPSocket():
 #endif
 }
 
+ESGenNPSocket::ESGenNPSocket(ESGENNP_SOCKET hSocket):
+    m_pController(NULL),
+    m_hSocket(hSocket)
+{
+#ifdef _WIN32
+    m_pController = std::make_shared<ESGenNPSocketControllerWin>();
+#endif
+}
+
 ESGenNPSocket::~ESGenNPSocket()
 {
 }
@@ -52,4 +61,22 @@ void ESGenNPSocket::Destroy()
         return;
 
     m_pController->Destroy(m_hSocket);
+}
+
+ESGENNP_SOCKET ESGenNPSocket::Accept()
+{
+    std::lock_guard<std::mutex> scopeLock(m_Mutex);
+    if(NULL == m_hSocket)
+        return NULL;
+
+    return m_pController->Accept(m_hSocket);
+}
+
+int32_t ESGenNPSocket::Listen()
+{
+    std::lock_guard<std::mutex> scopeLock(m_Mutex);
+    if(NULL == m_hSocket)
+        return -1;
+
+    return m_pController->Listen(m_hSocket);
 }

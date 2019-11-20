@@ -12,7 +12,7 @@ public:
     virtual ~ESGenNPRunnable();
 
     virtual void RequestExit();
-    bool IsExitRequested();
+    bool WaitForExit(uint64_t timeoutMS);
 
     ESGenNPRunnable & operator=(ESGenNPRunnable && obj)
     {
@@ -22,13 +22,13 @@ public:
     }
 
     void operator()(){Run();}
-
-protected:
     virtual void Run() = 0;
 
 private:
     std::promise<void> m_RequestExit;
     std::future<void> m_IsExitRequested;
 };
+
+
 
 #endif // ES_GENNP_RUNNABLE_H

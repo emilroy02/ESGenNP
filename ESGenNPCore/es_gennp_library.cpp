@@ -21,7 +21,8 @@ ESGC_ERROR ESGenNPLibrary::Initialize()
 
     m_HandleMap.clear();
     m_bInitialized = true;
-    return ESGC_ERR_NOT_IMPLEMENTED;
+
+    return ESGC_ERR_SUCCESS;
 }
 
 ESGC_ERROR ESGenNPLibrary::Uninitialize()
@@ -32,7 +33,8 @@ ESGC_ERROR ESGenNPLibrary::Uninitialize()
         return ESGC_ERR_NOT_INITIALIZED;
 
     m_bInitialized = false;
-    return ESGC_ERR_NOT_IMPLEMENTED;
+
+    return ESGC_ERR_SUCCESS;
 }
 
 bool ESGenNPLibrary::IsInitialized()
@@ -91,7 +93,7 @@ template<typename T> ESGC_ERROR ESGenNPLibrary::CloseHandle(ESGENNP_HANDLE hHand
 
     //TBD remove all children recursively
 
-    itHandle->second.ptr->Close();
+    itHandle->second->Close();
     m_HandleMap.erase(itHandle);
 
     return ESGC_ERR_SUCCESS;
@@ -108,6 +110,8 @@ template<typename T> ESGC_ERROR ESGenNPLibrary::GetHandle (ESGENNP_HANDLE hHandl
     if(itHandle == m_HandleMap.end())
         return ESGC_ERR_INVALID_HANDLE;
 
-    hInstanceOut = dynamic_cast<T>(itHandle->second.ptr);
+    hInstanceOut = std::dynamic_pointer_cast<T>(itHandle->second);
     return ESGC_ERR_SUCCESS;
 }
+
+template ESGC_ERROR ESGenNPLibrary::GetHandle<ESGenNPModuleServer>(ESGENNP_HANDLE, std::shared_ptr<ESGenNPModuleServer> &);

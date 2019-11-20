@@ -11,6 +11,7 @@ class ESGenNPSocket
 {
 public:
     ESGenNPSocket();
+    ESGenNPSocket(ESGENNP_SOCKET hSocket);
     virtual ~ESGenNPSocket();
 
 public:
@@ -18,9 +19,8 @@ public:
     bool Bind(uint32_t ipAddress, uint16_t port);
     void Destroy();
 
-protected:
-//    virtual void OnCreate();???
-
+    ESGENNP_SOCKET Accept();//TBD add socket info???
+    int32_t Listen(); //TBD add backlog parameter
 
 private:
     std::shared_ptr<ESGenNPSocketController> m_pController;

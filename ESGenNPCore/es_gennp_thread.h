@@ -2,32 +2,26 @@
 #define ES_GENNP_THREAD_H
 
 #include "es_gennp_common.h"
+#include "es_gennp_runnable.h"
+#include "es_gennp_branding.h"
+
 #include <thread>
-#include <future>
+#include <memory>
 
 class ESGenNPThread
 {
 public:
     ESGenNPThread();
-//    virtual ESGenNPThread();
+    virtual ~ESGenNPThread();
 
-    bool Start();
-
-    ESGenNPThread & operator=(ESGenNPThread && obj)
-    {
-        m_RequestExit = std::move(obj.m_RequestExit);
-        m_IsExitRequested = std::move(obj.m_IsExitRequested);
-        return *this;
-    }
-
-    void operator()(){Run();}
-
-protected:
-    virtual void Run() = 0;
+    bool Start(const std::shared_ptr<ESGenNPRunnable> &task);
+//    bool Start(const std::shared_ptr<ESGenNPRunnable> &task);
+//    void RequestExit();
+//    bool Wait(uint64_t timeOut);
 
 private:
-    std::promise<void> m_RequestExit;
-    std::future<void> m_IsExitRequested;
+    std::shared_ptr<ESGenNPRunnable> m_pTask;
+    std::unique_ptr<std::thread> m_pThread;
 };
 
 #endif // ES_GENNP_THREAD_H

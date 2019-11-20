@@ -42,7 +42,7 @@ void ESGenNPHandle::MarkDead()
 ESGC_ERROR ESGenNPHandle::Open()
 {
     std::lock_guard<std::mutex> lock(m_Mutex);
-    if(m_bInited)
+    if(false == m_bInited)
         return ESGC_ERR_NOT_INITIALIZED;
 
     ESGC_ERROR retError = DoOpen();

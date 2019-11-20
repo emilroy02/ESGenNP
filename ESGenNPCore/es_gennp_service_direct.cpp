@@ -2,9 +2,19 @@
 #include "es_gennp_config_init_branding.h"
 
 #include "es_gennp_module_client.h"
+#include "es_gennp_module_server.h"
 
 #include <memory>
 #include <iostream>
+
+#define GET_HANDLE(h,T,inst) std::shared_ptr<T> inst; \
+                             { \
+                                 ESGC_ERROR error = m_Library->GetHandle(h, inst); \
+                                 if (error != ESGC_ERR_SUCCESS) \
+                                 { \
+                                   return error; \
+                                 } \
+                             }
 
 ESGenNPServiceDirect::ESGenNPServiceDirect(const std::shared_ptr<ESGenNPLibrary> &library):
     m_Library(library)
@@ -34,7 +44,22 @@ ESGC_ERROR ESGenNPServiceDirect::ESGCClose()
 
 ESGC_ERROR ESGenNPServiceDirect::ESGCClientCreate(ESGC_CLIENT_HANDLE *phClientOut)
 {
-    //TBD only temporary
-    std::shared_ptr<ESGenNPModuleClient> client = std::make_shared<ESGenNPModuleClient>();;
+    std::shared_ptr<ESGenNPModuleClient> client = std::make_shared<ESGenNPModuleClient>();
+    client->Init(); //Always init modules
     return m_Library->OpenHandle(client, phClientOut);
+}
+
+ESGC_ERROR ESGenNPServiceDirect::ESGCServerCreate(ESGC_SERVER_HANDLE *phServerOut)
+{
+    std::shared_ptr<ESGenNPModule> server = std::make_shared<ESGenNPModuleServer>();
+    server->Init(); //Always init modules
+    return m_Library->OpenHandle(server, phServerOut);
+}
+
+ESGC_ERROR ESGenNPServiceDirect::ESGCServerStart(ESGC_SERVER_HANDLE hServer)
+{
+//    GET_HANDLE(hServer,ESGenNPModuleServer, server)
+    std::shared_ptr <ESGenNPModuleServer> server;
+    ESGC_ERROR error = m_Library->GetHandle(hServer, server);
+    return server->Start();
 }

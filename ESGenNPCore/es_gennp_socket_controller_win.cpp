@@ -39,6 +39,27 @@ void ESGenNPSocketControllerWin::Destroy(ESGENNP_SOCKET hSocket)
     closesocket((SOCKET)hSocket);
 }
 
+int32_t ESGenNPSocketControllerWin::Listen(ESGENNP_SOCKET hSocket)
+{
+    SOCKET socket = reinterpret_cast<SOCKET>(hSocket);
+
+    int32_t ret = listen(socket, SOMAXCONN);
+    if (SOCKET_ERROR == ret)
+        return SOCKET_ERROR;
+
+    return ret;
+}
+
+ESGENNP_SOCKET ESGenNPSocketControllerWin::Accept(ESGENNP_SOCKET hListenSocket)
+{
+    SOCKET listenSocket = reinterpret_cast<SOCKET>(hListenSocket);
+    SOCKET clientSocket = accept(listenSocket, NULL, NULL);
+    if(INVALID_SOCKET == clientSocket)
+        return NULL;
+
+    return reinterpret_cast<ESGENNP_SOCKET>(clientSocket);
+}
+
 //bool ESGenNPSocketControllerWin::Create(int32_t af, int32_t type, int32_t protocol)
 //{
 //    if(INVALID_SOCKET != m_Socket)

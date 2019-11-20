@@ -69,7 +69,8 @@ copyToDestDir("$${PWD}/es_gennp_event_source.h", "$${PWD}/../DEV/Include")
 copyToDestDir("$${PWD}/es_gennp_module.h", "$${PWD}/../DEV/Include")
 copyToDestDir("$${PWD}/es_gennp_module_client.h", "$${PWD}/../DEV/Include")
 copyToDestDir("$${PWD}/es_gennp_module_server.h", "$${PWD}/../DEV/Include")
-
+copyToDestDir("$${PWD}/es_gennp_runnable.h", "$${PWD}/../DEV/Include")
+copyToDestDir("$${PWD}/es_gennp_runnable_looped.h", "$${PWD}/../DEV/Include")
 
 win32{
     CONFIG(debug, debug|release) {
@@ -98,10 +99,10 @@ SOURCES += \
     es_gennp_handle.cpp \
     es_gennp_event_source.cpp \
     es_gennp_module_server.cpp \
-    es_gennp_socket_stream_tcp.cpp \
     es_gennp_module_client.cpp \
     es_gennp_socket.cpp \
-    es_gennp_runnable.cpp
+    es_gennp_runnable.cpp \
+    es_gennp_runnable_looped.cpp
 
 HEADERS += \
     es_gennp_common.h \
@@ -128,9 +129,9 @@ HEADERS += \
     es_gennp_module_server.h \
     es_gennp_module_client.h \
     es_gennp_tag_client.h \
-    es_gennp_socket_stream_tcp.h \
     es_gennp_tag_server.h \
-    es_gennp_runnable.h
+    es_gennp_runnable.h \
+    es_gennp_runnable_looped.h
 
 unix {
     target.path = /usr/lib

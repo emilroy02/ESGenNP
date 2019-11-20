@@ -19,6 +19,9 @@ public:
     virtual bool Bind(ESGENNP_SOCKET hSocket, uint32_t ipAddress, uint16_t port);
     virtual void Destroy(ESGENNP_SOCKET hSocket);
 
+    virtual int32_t Listen(ESGENNP_SOCKET hSocket);
+    virtual ESGENNP_SOCKET Accept(ESGENNP_SOCKET hListenSocket);
+
 //    virtual bool Bind(uint64_t ipAddress, uint16_t port);
 //    virtual bool SetSocketOpt(int32_t level, int32_t optName, const char *optValue, int32_t optLen);
 //    virtual bool GetSocketOpt(int32_t level, int32_t optName, const char *optValue, int32_t optLen);

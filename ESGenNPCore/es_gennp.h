@@ -86,7 +86,8 @@ extern "C" {
         ESGC_ERR_INVALID_HANDLE      = -1006,
         ESGC_ERR_INVALID_PARAMETER   = -1007,
         ESGC_ERR_ABORT               = -1008,
-        ESGC_ERR_TIMEOUT             = -1009
+        ESGC_ERR_TIMEOUT             = -1009,
+        ESGC_ERR_TBD                 = -1010
     };
     typedef int32_t ESGC_ERROR;
 
@@ -100,6 +101,7 @@ extern "C" {
     typedef int32_t ESGC_EVENT_TYPE;
 
     typedef void*  ESGC_CLIENT_HANDLE;
+    typedef void*  ESGC_SERVER_HANDLE;
 
 #   define ESGC_API ESGC_IMPORT_EXPORT ESGC_ERROR ESGC_CALLTYPE
 
@@ -107,6 +109,8 @@ extern "C" {
     ESGC_API ESGCClose             ( void );
 
     ESGC_API ESGCClientCreate      (ESGC_CLIENT_HANDLE *phClientOut);//TBD might need to pass some uid/info like port, etc
+    ESGC_API ESGCServerCreate      (ESGC_SERVER_HANDLE *phServerOut);
+    ESGC_API ESGCServerStart       (ESGC_SERVER_HANDLE hServer); //TBD might need to pass some uid/info like port, etc
     //Client
     //Stream
     //

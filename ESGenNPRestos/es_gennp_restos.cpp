@@ -54,10 +54,23 @@ namespace ESGenNP {
         return pService->ESGCClose();
     }
 
-    ESGC_API ESGCCreateClient( void )
+    ESGC_API ESGCClientCreate( ESGC_CLIENT_HANDLE *phClientOut)
     {
         COMMON_PRECONDITION
-        return pService->ESGCClose();
+        return pService->ESGCClientCreate(phClientOut);
     }
+
+    ESGC_API ESGCServerCreate( ESGC_SERVER_HANDLE *phServerOut)
+    {
+        COMMON_PRECONDITION
+        return pService->ESGCServerCreate(phServerOut);
+    }
+
+    ESGC_API ESGCServerStart(ESGC_SERVER_HANDLE hServer)
+    {
+        COMMON_PRECONDITION
+        return pService->ESGCServerStart(hServer);
+    }
+
   }
 }
