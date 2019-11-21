@@ -35,6 +35,7 @@ typedef float             float32_t;
 typedef double            float64_t;
 
 #include <stddef.h>
+#include <string>
 
 /* Function declaration modifiers */
 #if defined (_MSC_VER)
@@ -109,6 +110,8 @@ extern "C" {
     ESGC_API ESGCClose             ( void );
 
     ESGC_API ESGCClientCreate      (ESGC_CLIENT_HANDLE *phClientOut);//TBD might need to pass some uid/info like port, etc
+    ESGC_API ESGCClientConnect     (ESGC_CLIENT_HANDLE hClient, const std::string &ipAddress, const uint16_t port);
+
     ESGC_API ESGCServerCreate      (ESGC_SERVER_HANDLE *phServerOut);
     ESGC_API ESGCServerStart       (ESGC_SERVER_HANDLE hServer); //TBD might need to pass some uid/info like port, etc
     ESGC_API ESGCServerStop        (ESGC_SERVER_HANDLE hServer);

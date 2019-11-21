@@ -115,3 +115,4 @@ template<typename T> ESGC_ERROR ESGenNPLibrary::GetHandle (ESGENNP_HANDLE hHandl
 }
 
 template ESGC_ERROR ESGenNPLibrary::GetHandle<ESGenNPModuleServer>(ESGENNP_HANDLE, std::shared_ptr<ESGenNPModuleServer> &);
+template ESGC_ERROR ESGenNPLibrary::GetHandle<ESGenNPModuleClient>(ESGENNP_HANDLE, std::shared_ptr<ESGenNPModuleClient> &);

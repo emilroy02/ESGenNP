@@ -15,6 +15,7 @@ public:
     ESGC_ERROR ESGCInit();
     ESGC_ERROR ESGCClose();
     ESGC_ERROR ESGCClientCreate(ESGC_CLIENT_HANDLE *phClientOut);
+    ESGC_ERROR ESGCClientConnect(ESGC_CLIENT_HANDLE hClient, const std::string &ipAddress, const uint16_t port);
     ESGC_ERROR ESGCServerCreate(ESGC_SERVER_HANDLE *phServerOut);
     ESGC_ERROR ESGCServerStart(ESGC_SERVER_HANDLE hServer);
     ESGC_ERROR ESGCServerStop(ESGC_SERVER_HANDLE hServer);

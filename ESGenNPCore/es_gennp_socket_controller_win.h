@@ -16,6 +16,7 @@ public:
     virtual ~ESGenNPSocketControllerWin();
 
     virtual ESGENNP_SOCKET Create(int32_t af, int32_t type, int32_t protocol);
+    virtual bool Connect(ESGENNP_SOCKET hSocket, uint32_t ipAddress, uint16_t port);
     virtual bool Bind(ESGENNP_SOCKET hSocket, uint32_t ipAddress, uint16_t port);
     virtual void Destroy(ESGENNP_SOCKET hSocket);
 

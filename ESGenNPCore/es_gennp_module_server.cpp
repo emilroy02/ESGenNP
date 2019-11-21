@@ -15,6 +15,7 @@ ESGenNPModuleServer::ESGenNPModuleServer():
 
 ESGenNPModuleServer::~ESGenNPModuleServer()
 {
+    Stop();
 }
 
 std::string ESGenNPModuleServer::GetID () const
@@ -46,25 +47,20 @@ ESGC_ERROR ESGenNPModuleServer::Stop()
 
 ESGC_ERROR ESGenNPModuleServer::DoOpen()
 {
-    if(NULL != m_pListenSocket)
-        return ESGC_ERR_RESOURCE_IN_USE;
-
     m_pListenSocket = std::make_shared<ESGenNPSocket>();
     return ESGC_ERR_SUCCESS;
 }
 
 ESGC_ERROR ESGenNPModuleServer::DoClose()
 {
-    if(NULL == m_pListenSocket)
-        return ESGC_ERR_RESOURCE_IN_USE;
-
+    Stop();
+    m_pThread = NULL;
+    m_pListenSocket = NULL;
     return ESGC_ERR_SUCCESS;
 }
 
 void ESGenNPModuleServer::DoMarkDead()
 {
-    m_pThread = NULL;
-    m_pListenSocket = NULL;
 }
 
 bool ESGenNPModuleServer::OnEntry()

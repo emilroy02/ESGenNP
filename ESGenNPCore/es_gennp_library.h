@@ -6,6 +6,7 @@
 #include "es_gennp_module_client.h"
 #include "es_gennp_wrap.h"
 #include "es_gennp_module_server.h"
+#include "es_gennp_module_client.h"
 
 #include <map>
 #include <mutex>

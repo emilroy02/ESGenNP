@@ -50,6 +50,12 @@ ESGC_ERROR ESGenNPServiceDirect::ESGCClientCreate(ESGC_CLIENT_HANDLE *phClientOu
     return m_Library->OpenHandle(client, phClientOut);
 }
 
+ESGC_ERROR ESGenNPServiceDirect::ESGCClientConnect(ESGC_CLIENT_HANDLE hClient, const std::string &ipAddress, const uint16_t port)
+{
+    GET_HANDLE(hClient,ESGenNPModuleClient, client)
+    return client->Connect(ipAddress, port);
+}
+
 ESGC_ERROR ESGenNPServiceDirect::ESGCServerCreate(ESGC_SERVER_HANDLE *phServerOut)
 {
     std::shared_ptr<ESGenNPModule> server = std::make_shared<ESGenNPModuleServer>();

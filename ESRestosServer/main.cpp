@@ -22,8 +22,8 @@ int main(int argc, char *argv[])
         if(ESGC_ERR_SUCCESS != error)
             cout << "ESGCServerStart Failed! Error:" << error << endl;
 
-        Sleep(1000);
-        ESGCServerStop(hServer);
+        //TBD wait for event when client is connected
+        getchar();
     }
     ESGCClose();
     system("pause");

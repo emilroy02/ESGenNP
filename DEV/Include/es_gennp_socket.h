@@ -16,6 +16,7 @@ public:
 
 public:
     bool Create(int32_t af, int32_t type, int32_t protocol);
+    bool Connect(uint32_t ipAddress, uint16_t port);
     bool Bind(uint32_t ipAddress, uint16_t port);
     void Destroy();
 

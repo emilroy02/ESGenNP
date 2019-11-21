@@ -60,6 +60,12 @@ namespace ESGenNP {
         return pService->ESGCClientCreate(phClientOut);
     }
 
+    ESGC_API ESGCClientConnect(ESGC_CLIENT_HANDLE hClient, const std::string &ipAddress, const uint16_t port)
+    {
+        COMMON_PRECONDITION
+        return pService->ESGCClientConnect(hClient, ipAddress, port);
+    }
+
     ESGC_API ESGCServerCreate( ESGC_SERVER_HANDLE *phServerOut)
     {
         COMMON_PRECONDITION

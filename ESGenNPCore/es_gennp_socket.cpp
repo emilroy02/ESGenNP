@@ -45,6 +45,22 @@ bool ESGenNPSocket::Create(int32_t af, int32_t type, int32_t protocol)
     return true;
 }
 
+bool ESGenNPSocket::Connect(uint32_t ipAddress, uint16_t port)
+{
+    m_Mutex.lock();
+    ESGENNP_SOCKET hSocket = m_hSocket;
+    m_Mutex.unlock();
+
+    if(NULL == hSocket)
+        return false;
+
+    bool bRet = m_pController->Connect(hSocket, ipAddress, port);
+    if(false == bRet)
+        return false;
+
+    return true;
+}
+
 bool ESGenNPSocket::Bind(uint32_t ipAddress, uint16_t port)
 {
     m_Mutex.lock();
@@ -71,6 +87,10 @@ void ESGenNPSocket::Destroy()
         return;
 
     m_pController->Destroy(hSocket);
+
+    m_Mutex.lock();
+    m_hSocket = NULL;
+    m_Mutex.unlock();
 }
 
 ESGENNP_SOCKET ESGenNPSocket::Accept()

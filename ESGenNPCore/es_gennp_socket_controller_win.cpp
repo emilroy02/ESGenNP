@@ -19,6 +19,21 @@ ESGENNP_SOCKET ESGenNPSocketControllerWin::Create(int32_t af, int32_t type, int3
     return reinterpret_cast<ESGENNP_SOCKET>(hSocket);
 }
 
+bool ESGenNPSocketControllerWin::Connect(ESGENNP_SOCKET hSocket, uint32_t ipAddress, uint16_t port)
+{
+    sockaddr_in TargetAddress;
+    TargetAddress.sin_family = AF_INET;
+    TargetAddress.sin_port = htons(port);
+    TargetAddress.sin_addr.S_un.S_addr = ipAddress;
+
+    int error = connect((SOCKET)hSocket, (struct sockaddr *)&TargetAddress, sizeof(TargetAddress));
+    if (SOCKET_ERROR == error)
+        return false;
+
+    return true;
+}
+
+
 bool ESGenNPSocketControllerWin::Bind(ESGENNP_SOCKET hSocket, uint32_t ipAddress, uint16_t port)
 {
     sockaddr_in TargetAddress;
@@ -41,9 +56,7 @@ void ESGenNPSocketControllerWin::Destroy(ESGENNP_SOCKET hSocket)
 
 int32_t ESGenNPSocketControllerWin::Listen(ESGENNP_SOCKET hSocket)
 {
-    SOCKET socket = reinterpret_cast<SOCKET>(hSocket);
-
-    int32_t ret = listen(socket, SOMAXCONN);
+    int32_t ret = listen((SOCKET)hSocket, SOMAXCONN);
     if (SOCKET_ERROR == ret)
         return SOCKET_ERROR;
 
