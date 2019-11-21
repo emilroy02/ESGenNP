@@ -83,5 +83,17 @@ namespace ESGenNP {
         COMMON_PRECONDITION
         return pService->ESGCServerStop(hServer);
     }
+
+    ESGC_API ESGCRegisterEvent(ESGC_EVENTSRC_HANDLE hEventSrc, ESGC_EVENT_TYPE type, ESGC_EVENT_HANDLE *phEventOut)
+    {
+        COMMON_PRECONDITION
+        return pService->ESGCRegisterEvent(hEventSrc, type, phEventOut);
+    }
+
+    ESGC_API ESGCEventGetData(ESGC_EVENT_HANDLE hEvent, void *pBuffer, size_t *piSize, uint64_t iTimeout)
+    {
+        COMMON_PRECONDITION
+        return pService->ESGCEventGetData(hEvent, pBuffer, piSize, iTimeout);
+    }
   }
 }

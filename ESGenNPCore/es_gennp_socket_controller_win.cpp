@@ -8,6 +8,7 @@ ESGenNPSocketControllerWin::ESGenNPSocketControllerWin()
 
 ESGenNPSocketControllerWin::~ESGenNPSocketControllerWin()
 {
+    WSACleanup();
 }
 
 ESGENNP_SOCKET ESGenNPSocketControllerWin::Create(int32_t af, int32_t type, int32_t protocol)

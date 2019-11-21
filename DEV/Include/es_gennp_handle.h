@@ -34,7 +34,7 @@ protected:
     virtual void DoInit();
 
 protected:
-    mutable std::mutex m_Mutex;
+    mutable std::recursive_mutex m_Mutex;
 
 private:
     ESGenNPHandle (const ESGenNPHandle&);

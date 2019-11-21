@@ -11,6 +11,10 @@ public:
 
     virtual ESGC_ERROR ESGCInit() = 0;
     virtual ESGC_ERROR ESGCClose() = 0;
+
+    virtual ESGC_ERROR ESGCRegisterEvent(ESGC_EVENTSRC_HANDLE hEventSrc, ESGC_EVENT_TYPE type, ESGC_EVENT_HANDLE *phEventOut)=0;
+    virtual ESGC_ERROR ESGCEventGetData(ESGC_EVENT_HANDLE hEvent, void *pBuffer, size_t *piSize, uint64_t iTimeout)=0;
+
     virtual ESGC_ERROR ESGCClientCreate(ESGC_CLIENT_HANDLE *phClientOut) = 0;
     virtual ESGC_ERROR ESGCClientConnect(ESGC_CLIENT_HANDLE hClient, const std::string &ipAddress, const uint16_t port)=0;
     virtual ESGC_ERROR ESGCServerCreate(ESGC_SERVER_HANDLE *phServerOut) = 0;

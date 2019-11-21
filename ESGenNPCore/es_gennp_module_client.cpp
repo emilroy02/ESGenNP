@@ -15,7 +15,7 @@ ESGenNPModuleClient::~ESGenNPModuleClient()
 
 ESGC_ERROR ESGenNPModuleClient::Connect(const std::string &ipAddress, const uint16_t port)
 {
-    std::lock_guard<std::mutex> lock(GetLock());
+    std::lock_guard<std::recursive_mutex> lock(GetLock());
     if(NULL == m_pConnectSocket)
         return ESGC_ERR_TBD;
 

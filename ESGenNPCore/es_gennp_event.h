@@ -67,4 +67,25 @@ protected:
     virtual ESGC_ERROR DoGetData(const ESErrorEventData &evt_data, void *buffer, size_t *psize);
 };
 
+typedef struct ESEventServerClientConnectedData_
+{
+    std::string clientID;
+    ESEventServerClientConnectedData_(const std::string &clientID):clientID(clientID){}
+} ESEventServerClientConnectedData;
+
+class ESGenNPEventServerClientConnected:public ESGenNPEventImpl<ESEventServerClientConnectedData>
+{
+public:
+    ESGenNPEventServerClientConnected();
+    virtual~ESGenNPEventServerClientConnected();
+
+    virtual ESGC_EVENT_TYPE GetEventType() const {return ESGC_EVENT_SERVER_CLIENT_CONNECTED;}
+
+public:
+    bool AddClientConnectedEvent(const std::string &clientID);
+
+protected:
+    virtual ESGC_ERROR DoGetData(const ESEventServerClientConnectedData &eventData, void *buffer, size_t *psize);
+};
+
 #endif // ESGENNPEVENT_H

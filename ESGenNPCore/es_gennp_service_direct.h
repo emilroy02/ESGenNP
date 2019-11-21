@@ -14,6 +14,9 @@ public:
 
     ESGC_ERROR ESGCInit();
     ESGC_ERROR ESGCClose();
+    ESGC_ERROR ESGCRegisterEvent(ESGC_EVENTSRC_HANDLE hEventSrc, ESGC_EVENT_TYPE type, ESGC_EVENT_HANDLE *phEventOut);
+    ESGC_ERROR ESGCEventGetData(ESGC_EVENT_HANDLE hEvent, void *pBuffer, size_t *piSize, uint64_t iTimeout);
+
     ESGC_ERROR ESGCClientCreate(ESGC_CLIENT_HANDLE *phClientOut);
     ESGC_ERROR ESGCClientConnect(ESGC_CLIENT_HANDLE hClient, const std::string &ipAddress, const uint16_t port);
     ESGC_ERROR ESGCServerCreate(ESGC_SERVER_HANDLE *phServerOut);

@@ -83,7 +83,34 @@ ESGC_ERROR ESGenNPEventError::DoGetData(const ESErrorEventData &evt_data, void *
     return ESGC_ERR_NOT_IMPLEMENTED;
 }
 
-template class ESGenNPEventImpl<ESErrorEventData>;
+ESGenNPEventServerClientConnected::ESGenNPEventServerClientConnected():
+    ESGenNPEventImpl<ESEventServerClientConnectedData>()
+{
+}
 
+ESGenNPEventServerClientConnected::~ESGenNPEventServerClientConnected()
+{
+}
+
+bool ESGenNPEventServerClientConnected::AddClientConnectedEvent(const std::string &clientID)
+{
+    ESEventServerClientConnectedData eventData(clientID);
+    return AddEventData(eventData);
+}
+
+ESGC_ERROR ESGenNPEventServerClientConnected::DoGetData(const ESEventServerClientConnectedData &eventData, void *pBuffer, size_t *pSize)
+{
+    size_t eventSize = eventData.clientID.size() + 1;
+    if (*pSize < eventSize)
+        return ESGC_ERR_BUFFER_TOO_SMALL;
+
+    strcpy ((char*)(pBuffer), eventData.clientID.c_str());
+    *pSize = eventSize;
+
+    return ESGC_ERR_SUCCESS;
+}
+
+template class ESGenNPEventImpl<ESErrorEventData>;
+template class ESGenNPEventImpl<ESEventServerClientConnectedData>;
 
 

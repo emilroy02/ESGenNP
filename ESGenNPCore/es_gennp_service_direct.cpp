@@ -1,6 +1,8 @@
 #include "es_gennp_service_direct.h"
 #include "es_gennp_config_init_branding.h"
 
+#include "es_gennp_event.h"
+#include "es_gennp_event_source.h"
 #include "es_gennp_module_client.h"
 #include "es_gennp_module_server.h"
 
@@ -41,6 +43,23 @@ ESGC_ERROR ESGenNPServiceDirect::ESGCInit()
 ESGC_ERROR ESGenNPServiceDirect::ESGCClose()
 {
     return m_Library->Uninitialize();
+}
+
+ESGC_ERROR ESGenNPServiceDirect::ESGCRegisterEvent(ESGC_EVENTSRC_HANDLE hEventSrc, ESGC_EVENT_TYPE type, ESGC_EVENT_HANDLE *phEventOut)
+{
+    GET_HANDLE(hEventSrc,ESGenNPEventSource, eventSource)
+    std::shared_ptr<ESGenNPEvent> event;
+    ESGC_ERROR retError = eventSource->RegisterEvent(type, event);
+    if(ESGC_ERR_SUCCESS != retError)
+        return retError;
+
+    return m_Library->OpenHandle(event, phEventOut);
+}
+
+ESGC_ERROR ESGenNPServiceDirect::ESGCEventGetData(ESGC_EVENT_HANDLE hEvent, void *pBuffer, size_t *piSize, uint64_t iTimeout)
+{
+    GET_HANDLE(hEvent,ESGenNPEvent, event)
+    return event->GetData(pBuffer, piSize, iTimeout);
 }
 
 ESGC_ERROR ESGenNPServiceDirect::ESGCClientCreate(ESGC_CLIENT_HANDLE *phClientOut)

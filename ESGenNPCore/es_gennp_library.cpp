@@ -11,7 +11,7 @@ ESGenNPLibrary::~ESGenNPLibrary()
 
 ESGC_ERROR ESGenNPLibrary::Initialize()
 {
-    std::lock_guard<std::mutex> lock(m_Mutex);
+    std::lock_guard<std::recursive_mutex> lock(m_Mutex);
 
     //TBD get branding test period there
     //TBD add user specific initialization
@@ -27,25 +27,28 @@ ESGC_ERROR ESGenNPLibrary::Initialize()
 
 ESGC_ERROR ESGenNPLibrary::Uninitialize()
 {
-    std::lock_guard<std::mutex> lock(m_Mutex);
+    std::lock_guard<std::recursive_mutex> lock(m_Mutex);
 
     if(false == m_bInitialized)
         return ESGC_ERR_NOT_INITIALIZED;
 
-    m_bInitialized = false;
+    for(HandlePoolType::iterator it = m_HandleMap.begin();it != m_HandleMap.end();++it)
+        CloseHandle<ESGenNPHandle>(it->first);
 
+    m_HandleMap.clear();
+    m_bInitialized = false;
     return ESGC_ERR_SUCCESS;
 }
 
 bool ESGenNPLibrary::IsInitialized()
 {
-    std::lock_guard<std::mutex> lock(m_Mutex);
+    std::lock_guard<std::recursive_mutex> lock(m_Mutex);
     return m_bInitialized;
 }
 
 //ESGC_ERROR ESGenNPLibrary::CreateClient(std::shared_ptr<ESGenNPModuleClient> &clientOut)
 //{
-//    std::lock_guard<std::mutex> lock(m_Mutex);
+//    std::lock_guard<std::recursive_mutex> lock(m_Mutex);
 //    if(false == m_bInitialized)
 //        return ESGC_ERR_NOT_INITIALIZED;
 
@@ -56,7 +59,7 @@ bool ESGenNPLibrary::IsInitialized()
 
 ESGC_ERROR ESGenNPLibrary::OpenHandle(const std::shared_ptr<ESGenNPHandle> &hInstance, ESGENNP_HANDLE *hPointerOut)
 {
-    std::lock_guard<std::mutex> lock(m_Mutex);
+    std::lock_guard<std::recursive_mutex> lock(m_Mutex);
     if(false == m_bInitialized)
         return ESGC_ERR_NOT_INITIALIZED;
 
@@ -79,7 +82,7 @@ ESGC_ERROR ESGenNPLibrary::OpenHandle(const std::shared_ptr<ESGenNPHandle> &hIns
 
 template<typename T> ESGC_ERROR ESGenNPLibrary::CloseHandle(ESGENNP_HANDLE hHandle)
 {
-    std::lock_guard<std::mutex> lock(m_Mutex);
+    std::lock_guard<std::recursive_mutex> lock(m_Mutex);
 
     if(false == m_bInitialized)
         return ESGC_ERR_NOT_INITIALIZED;
@@ -88,20 +91,17 @@ template<typename T> ESGC_ERROR ESGenNPLibrary::CloseHandle(ESGENNP_HANDLE hHand
     if(itHandle == m_HandleMap.end())
         return ESGC_ERR_INVALID_HANDLE;
 
-    if(NULL == dynamic_cast<T>(itHandle->second.ptr))
+    if(NULL == std::dynamic_pointer_cast<T>(itHandle->second))
         return ESGC_ERR_INVALID_HANDLE;
 
-    //TBD remove all children recursively
-
     itHandle->second->Close();
-    m_HandleMap.erase(itHandle);
-
+//    m_HandleMap.erase(itHandle); //TBD this should not be commented
     return ESGC_ERR_SUCCESS;
 }
 
 template<typename T> ESGC_ERROR ESGenNPLibrary::GetHandle (ESGENNP_HANDLE hHandle, std::shared_ptr<T> &hInstanceOut)
 {
-    std::lock_guard<std::mutex> lock(m_Mutex);
+    std::lock_guard<std::recursive_mutex> lock(m_Mutex);
 
     if(false == m_bInitialized)
         return ESGC_ERR_NOT_INITIALIZED;
@@ -114,5 +114,11 @@ template<typename T> ESGC_ERROR ESGenNPLibrary::GetHandle (ESGENNP_HANDLE hHandl
     return ESGC_ERR_SUCCESS;
 }
 
+template ESGC_ERROR ESGenNPLibrary::CloseHandle<ESGenNPModuleServer>(ESGENNP_HANDLE);
+template ESGC_ERROR ESGenNPLibrary::CloseHandle<ESGenNPModuleClient>(ESGENNP_HANDLE);
+template ESGC_ERROR ESGenNPLibrary::CloseHandle<ESGenNPEvent>(ESGENNP_HANDLE);
+
 template ESGC_ERROR ESGenNPLibrary::GetHandle<ESGenNPModuleServer>(ESGENNP_HANDLE, std::shared_ptr<ESGenNPModuleServer> &);
 template ESGC_ERROR ESGenNPLibrary::GetHandle<ESGenNPModuleClient>(ESGENNP_HANDLE, std::shared_ptr<ESGenNPModuleClient> &);
+template ESGC_ERROR ESGenNPLibrary::GetHandle<ESGenNPEvent>(ESGENNP_HANDLE, std::shared_ptr<ESGenNPEvent> &);
+template ESGC_ERROR ESGenNPLibrary::GetHandle<ESGenNPEventSource>(ESGENNP_HANDLE, std::shared_ptr<ESGenNPEventSource> &);

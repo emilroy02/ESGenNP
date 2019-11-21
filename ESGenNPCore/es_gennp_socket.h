@@ -25,7 +25,7 @@ public:
 
 private:
     std::shared_ptr<ESGenNPSocketController> m_pController;
-    mutable std::mutex m_Mutex;
+    mutable std::recursive_mutex m_Mutex;
     ESGENNP_SOCKET m_hSocket;
 };
 

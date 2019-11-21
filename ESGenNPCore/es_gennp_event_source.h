@@ -28,7 +28,7 @@ protected:
 
     virtual ESGC_ERROR DoRegisterEvent (ESGC_EVENT_TYPE type);
     virtual ESGC_ERROR DoUnregisterEvent (ESGC_EVENT_TYPE type);
-    virtual std::mutex &GetLock()=0;
+    virtual std::recursive_mutex &GetLock()=0;
 
 private:
     typedef std::map<ESGC_EVENT_TYPE, std::shared_ptr<ESGenNPEvent>>EventMapType;

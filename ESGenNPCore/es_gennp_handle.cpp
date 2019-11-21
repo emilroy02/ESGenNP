@@ -23,7 +23,7 @@ std::string ESGenNPHandle::GetSimpleID() const
 
 void ESGenNPHandle::Init()
 {
-    std::lock_guard<std::mutex> lock(m_Mutex);
+    std::lock_guard<std::recursive_mutex> lock(m_Mutex);
 
     if(m_bInited)
         return;
@@ -34,14 +34,14 @@ void ESGenNPHandle::Init()
 
 void ESGenNPHandle::MarkDead()
 {
-    std::lock_guard<std::mutex> lock(m_Mutex);
+    std::lock_guard<std::recursive_mutex> lock(m_Mutex);
     m_bIsDead = false;
     DoMarkDead();
 }
 
 ESGC_ERROR ESGenNPHandle::Open()
 {
-    std::lock_guard<std::mutex> lock(m_Mutex);
+    std::lock_guard<std::recursive_mutex> lock(m_Mutex);
     if(false == m_bInited)
         return ESGC_ERR_NOT_INITIALIZED;
 
@@ -55,20 +55,20 @@ ESGC_ERROR ESGenNPHandle::Open()
 
 ESGC_ERROR ESGenNPHandle::Close()
 {
-    std::lock_guard<std::mutex> lock(m_Mutex);
+    std::lock_guard<std::recursive_mutex> lock(m_Mutex);
     m_bIsOpen = false;
     return DoClose();
 }
 
 bool ESGenNPHandle::IsOpen() const
 {
-    std::lock_guard<std::mutex> lock(m_Mutex);
+    std::lock_guard<std::recursive_mutex> lock(m_Mutex);
     return m_bIsOpen;
 }
 
 bool ESGenNPHandle::IsDead() const
 {
-    std::lock_guard<std::mutex> lock(m_Mutex);
+    std::lock_guard<std::recursive_mutex> lock(m_Mutex);
     return m_bIsDead;
 }
 

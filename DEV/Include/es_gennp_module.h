@@ -15,7 +15,7 @@ public:
     virtual ~ESGenNPModule() = 0;
 
 protected:
-    virtual std::mutex &GetLock();
+    virtual std::recursive_mutex &GetLock();
 };
 
 #endif // ES_GENNP_MODULE_H

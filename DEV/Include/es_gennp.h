@@ -88,21 +88,27 @@ extern "C" {
         ESGC_ERR_INVALID_PARAMETER   = -1007,
         ESGC_ERR_ABORT               = -1008,
         ESGC_ERR_TIMEOUT             = -1009,
-        ESGC_ERR_TBD                 = -1010
+        ESGC_ERR_BUFFER_TOO_SMALL    = -1010,
+        ESGC_ERR_TBD                 = -2000
     };
     typedef int32_t ESGC_ERROR;
 
     enum ESGC_EVENT_TYPE_LIST
     {
-        ESGC_EVENT_ERROR               = 0,     /* Notification on module errors. */
-        ESGC_EVENT_SERVER_DISCOVERED   = 1,     /* Notification on client module when server is discovered. */
-        ESGC_EVENT_PACKET_RECEIVED     = 2,     /* Notification on client/server module when packet is received*/
-        ESGC_EVENT_CUSTOM_ID           = 10000
+        ESGC_EVENT_ERROR                      = 0,     /* Notification on module errors. */
+        ESGC_EVENT_CLIENT_SERVER_DISCOVERED   = 1,     /* Notification on client module when server is discovered. */
+        ESGC_EVENT_SERVER_CLIENT_CONNECTED    = 2,     /* Notification on server module when client is connected. */
+        ESGC_EVENT_PACKET_RECEIVED            = 3,     /* Notification on client/server module when packet is received*/
+        ESGC_EVENT_CUSTOM_ID                  = 10000
     };
     typedef int32_t ESGC_EVENT_TYPE;
 
-    typedef void*  ESGC_CLIENT_HANDLE;
-    typedef void*  ESGC_SERVER_HANDLE;
+    typedef void* ESGC_CLIENT_HANDLE;
+    typedef void* ESGC_SERVER_HANDLE;
+
+    typedef void* ESGC_EVENTSRC_HANDLE;    /* a EVENTSRC_HANDLE can be one of the following*/
+                                            /* ESGC_CLIENT_HANDLE, ESGC_CLIENT_HANDLE*/
+    typedef void* ESGC_EVENT_HANDLE;
 
 #   define ESGC_API ESGC_IMPORT_EXPORT ESGC_ERROR ESGC_CALLTYPE
 
@@ -115,11 +121,9 @@ extern "C" {
     ESGC_API ESGCServerCreate      (ESGC_SERVER_HANDLE *phServerOut);
     ESGC_API ESGCServerStart       (ESGC_SERVER_HANDLE hServer); //TBD might need to pass some uid/info like port, etc
     ESGC_API ESGCServerStop        (ESGC_SERVER_HANDLE hServer);
-    //Client
-    //Stream
-    //
 
-//    ESGC_API ESGCRegisterEvent     ( void );
+    ESGC_API ESGCRegisterEvent     (ESGC_EVENTSRC_HANDLE hEventSrc, ESGC_EVENT_TYPE type, ESGC_EVENT_HANDLE *phEventOut);
+    ESGC_API ESGCEventGetData      (ESGC_EVENT_HANDLE hEvent, void *pBuffer, size_t *piSize, uint64_t iTimeout);
 //    ESGC_API ESGCUnregisterEvent   ( void );
 
 //    ESGC_API ESGCEventGetData      ( void );

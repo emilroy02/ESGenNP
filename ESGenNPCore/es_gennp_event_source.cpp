@@ -11,23 +11,23 @@ ESGenNPEventSource::~ESGenNPEventSource()
 
 ESGC_ERROR ESGenNPEventSource::RegisterEvent(ESGC_EVENT_TYPE type,std::shared_ptr<ESGenNPEvent> &eventOut)
 {
-    std::lock_guard<std::mutex> lock(GetLock());
+    std::lock_guard<std::recursive_mutex> lock(GetLock());
 
     const EventMapType::iterator it_event = m_EventMap.find (type);
     if(it_event == m_EventMap.end())
         return ESGC_ERR_NOT_IMPLEMENTED;
 
-    it_event->second;
     ESGC_ERROR ret = DoRegisterEvent(type);
     if(ESGC_ERR_SUCCESS != ret)
         return ret;
 
+    eventOut = it_event->second;
     return ESGC_ERR_SUCCESS;
 }
 
 ESGC_ERROR ESGenNPEventSource::UnregisterEvent(ESGC_EVENT_TYPE type,std::shared_ptr<ESGenNPEvent> &eventOut)
 {
-    std::lock_guard<std::mutex> lock(GetLock());
+    std::lock_guard<std::recursive_mutex> lock(GetLock());
 
     const EventMapType::iterator it_event = m_EventMap.find (type);
     if(it_event == m_EventMap.end())

@@ -10,7 +10,7 @@ ESGenNPModule::~ESGenNPModule()
 {
 }
 
-std::mutex &ESGenNPModule::GetLock()
+std::recursive_mutex &ESGenNPModule::GetLock()
 {
     return m_Mutex;
 }

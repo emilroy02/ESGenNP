@@ -9,7 +9,8 @@ ESGenNPModuleServer::ESGenNPModuleServer():
     ESGenNPModule(),
     ESGenNPRunnableLooped(16),
     m_pClientSocket(NULL),
-    m_pListenSocket(NULL)
+    m_pListenSocket(NULL),
+    m_pEventClientConnected(NULL)
 {
 }
 
@@ -25,7 +26,7 @@ std::string ESGenNPModuleServer::GetID () const
 
 ESGC_ERROR ESGenNPModuleServer::Start()
 {
-    std::lock_guard<std::mutex> lock(GetLock());
+    std::lock_guard<std::recursive_mutex> lock(GetLock());
     if(NULL != m_pThread)
         return ESGC_ERR_TBD;//TBD
 
@@ -35,7 +36,7 @@ ESGC_ERROR ESGenNPModuleServer::Start()
 
 ESGC_ERROR ESGenNPModuleServer::Stop()
 {
-    std::lock_guard<std::mutex> lock(GetLock());
+    std::lock_guard<std::recursive_mutex> lock(GetLock());
     if(NULL == m_pThread)
         return ESGC_ERR_TBD;//TBD
 
@@ -43,6 +44,13 @@ ESGC_ERROR ESGenNPModuleServer::Stop()
     this->RequestExit();
     m_pThread->join();
     return ESGC_ERR_SUCCESS;
+}
+
+void ESGenNPModuleServer::DoInit()
+{
+    m_pEventClientConnected = std::make_shared<ESGenNPEventServerClientConnected>();
+    m_pEventClientConnected->Init();
+    AddSupportedEvent(m_pEventClientConnected);
 }
 
 ESGC_ERROR ESGenNPModuleServer::DoOpen()
@@ -81,12 +89,16 @@ bool ESGenNPModuleServer::OnEntry()
     if(iResult == SOCKET_ERROR)
         return false;
 
+    std::cout << "Before Accept!" << std::endl;
     ESGENNP_SOCKET hClientSocket = m_pListenSocket->Accept();
+    std::cout << "After Accept!" << std::endl;
     if(NULL == hClientSocket)
         return false;
 
-    m_pClientSocket = std::make_shared<ESGenNPSocket>(hClientSocket);
     std::cout << "New Client Connected!" << std::endl;
+    m_pEventClientConnected->AddClientConnectedEvent("Temporary Client ID OK????");
+    m_pClientSocket = std::make_shared<ESGenNPSocket>(hClientSocket);
+
     return true;
 }
 
@@ -101,4 +113,16 @@ void ESGenNPModuleServer::OnExit()
     std::cout << ">> OnExit" << std::endl;
     //m_pTCPSocket
 }
+
+//void ESGenNPModuleServer::_start()
+//{
+//    m_pThread = std::make_unique<std::thread>(&ESGenNPRunnableLooped::Run, this);
+//}
+
+//void ESGenNPModuleServer::_stop()
+//{
+//    m_pListenSocket->Destroy();
+//    this->RequestExit();
+//    m_pThread->join();
+//}
 

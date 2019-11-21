@@ -23,10 +23,10 @@ public:
 
 protected:
     //ESGenNPModule interface
+    virtual void DoInit();
     virtual ESGC_ERROR DoOpen();
     virtual ESGC_ERROR DoClose();
     virtual void DoMarkDead();
-//    virtual void DoInit();
     //End ESGenNPModule interface
 
     //ESGenNPRunnableLooped interface
@@ -35,10 +35,16 @@ protected:
     virtual void OnExit();
     //End ESGenNPRunnableLooped interface
 
+//private:
+//    void _start();
+//    void _stop();
+
 private:
     std::shared_ptr<ESGenNPSocket> m_pClientSocket;
     std::shared_ptr<ESGenNPSocket> m_pListenSocket;
     std::unique_ptr<std::thread> m_pThread;
+
+    std::shared_ptr<ESGenNPEventServerClientConnected> m_pEventClientConnected;
 };
 
 #endif // ES_GENNP_MODULE_SERVER_H
