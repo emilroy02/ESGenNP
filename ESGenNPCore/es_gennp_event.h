@@ -71,6 +71,7 @@ typedef struct ESEventServerClientConnectedData_
 {
     std::string clientID;
     ESEventServerClientConnectedData_(const std::string &clientID):clientID(clientID){}
+
 } ESEventServerClientConnectedData;
 
 class ESGenNPEventServerClientConnected:public ESGenNPEventImpl<ESEventServerClientConnectedData>

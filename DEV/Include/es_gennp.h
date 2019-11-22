@@ -119,6 +119,7 @@ extern "C" {
     ESGC_API ESGCClientConnect     (ESGC_CLIENT_HANDLE hClient, const std::string &ipAddress, const uint16_t port);
 
     ESGC_API ESGCServerCreate      (ESGC_SERVER_HANDLE *phServerOut);
+//    ESGC_API ESGCServerGetInfo     (ESGC_SERVER_HANDLE hServer);
     ESGC_API ESGCServerStart       (ESGC_SERVER_HANDLE hServer); //TBD might need to pass some uid/info like port, etc
     ESGC_API ESGCServerStop        (ESGC_SERVER_HANDLE hServer);
 

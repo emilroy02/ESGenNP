@@ -15,13 +15,13 @@ public:
     virtual ~ESGenNPSocket();
 
 public:
-    bool Create(int32_t af, int32_t type, int32_t protocol);
-    bool Connect(uint32_t ipAddress, uint16_t port);
-    bool Bind(uint32_t ipAddress, uint16_t port);
-    void Destroy();
+    virtual bool Create(int32_t af, int32_t type, int32_t protocol);
+    virtual bool Connect(uint32_t ipAddress, uint16_t port);
+    virtual bool Bind(uint32_t ipAddress, uint16_t port);
+    virtual void Destroy();
 
-    ESGENNP_SOCKET Accept();//TBD add socket info???
-    int32_t Listen(); //TBD add backlog parameter
+    virtual ESGENNP_SOCKET Accept();//TBD add socket info???
+    virtual int32_t Listen(); //TBD add backlog parameter
 
 private:
     std::shared_ptr<ESGenNPSocketController> m_pController;

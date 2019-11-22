@@ -18,10 +18,10 @@ int main(int argc, char *argv[])
         cout << "ESGCServerCreate Failed! Error:" << error << endl;
     else
     {
-        ESGC_EVENT_HANDLE hEventConnect = NULL;
-        error = ESGCRegisterEvent(hServer, ESGC_EVENT_SERVER_CLIENT_CONNECTED, &hEventConnect);
-        if(ESGC_ERR_SUCCESS != error)
-            cout << "ESGCRegisterEvent Failed! Error:" << error << endl;
+//        ESGC_EVENT_HANDLE hEventConnect = NULL;
+//        error = ESGCRegisterEvent(hServer, ESGC_EVENT_SERVER_CLIENT_CONNECTED, &hEventConnect);
+//        if(ESGC_ERR_SUCCESS != error)
+//            cout << "ESGCRegisterEvent Failed! Error:" << error << endl;
 
         error = ESGCServerStart(hServer);
         if(ESGC_ERR_SUCCESS != error)
@@ -52,8 +52,8 @@ int main(int argc, char *argv[])
 
     }
 
-    Sleep(4000);
-    ESGCClose();
+//    Sleep(4000);
+//    ESGCClose();
     system("pause");
     return 0;
 }

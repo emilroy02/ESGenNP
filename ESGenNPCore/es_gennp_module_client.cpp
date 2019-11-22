@@ -19,6 +19,7 @@ ESGC_ERROR ESGenNPModuleClient::Connect(const std::string &ipAddress, const uint
     if(NULL == m_pConnectSocket)
         return ESGC_ERR_TBD;
 
+    //TBD add signal
     bool bRet = m_pConnectSocket->Connect(inet_addr(ipAddress.c_str()), port);
     if(false == bRet)
         return ESGC_ERR_ERROR;
